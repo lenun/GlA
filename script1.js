@@ -1,15 +1,9 @@
 'use strict';
+let arr = ['2', '4', '100', '42', '32', '22', '299']; 
 
-let str = prompt('Напиши что нибудь');
+arr.forEach((rer) => {
+  if (rer.startsWith('2') || rer.startsWith('4')) {
+    console.log(rer);
+  }
+});
 
-function request(str){
-    if(isNaN(str) !== true ){
-        alert('Это не строка!!!');
-    }else if (isNaN(str) === true ) {
-       str = str.trim();
-       alert(str);
-    } else if (str.length > 30) {
-       str =str.slice(0,30) + '...';
-}
-}
-request(str);
