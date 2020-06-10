@@ -42,8 +42,8 @@ console.log('Накопления за месяц:',getAccumulatedMonth());
 let accumulatedMonth =0;
 accumulatedMonth = getAccumulatedMonth();
 
-function getTargetMonth (a,b){
-    const sum = mission / accumulatedMonth;
+function getTargetMonth (){
+    const sum = Math.trunc(mission / accumulatedMonth);
     return sum;
 }
 console.log('Цель будет достигнута через :',getTargetMonth(),'месяцев');
