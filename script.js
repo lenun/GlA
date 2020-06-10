@@ -1,10 +1,19 @@
 'use strict';
-
-let money = prompt('Ваш месячный доход?','50000'),
+let isNumber =function(n){
+    return !isNaN(parseFloat(n)) && isFinite(n);
+};
+let money ,
     income = 'хореограф',
     addExpenses = prompt('Перечислите возможные расходы ','интернет'),
     deposit = confirm('Если ли у вас депозить в банке?'),
     mission = 1000000;
+
+do{
+    money = prompt('Ваш месячный доход?');
+}
+while(!isNumber(money));
+
+
 
 let showTypeOf = function(data){
         console.log(data, typeof(data));
@@ -12,6 +21,7 @@ let showTypeOf = function(data){
 showTypeOf(money);
 showTypeOf(income);
 showTypeOf(deposit);
+
     
 
 let period = Number(mission)/(Number(money)); 
@@ -28,8 +38,10 @@ let amount2 =  prompt('Во сколько это обойдется?','15000');
 
 
 function getExpensesMonth (){
+    while(isNaN){
     const sum = Number(amount1) + Number(amount2);
     return sum;
+}
 }
 console.log('Cуммa всех обязательных расходов за месяц:',getExpensesMonth());
 
@@ -42,11 +54,18 @@ console.log('Накопления за месяц:',getAccumulatedMonth());
 let accumulatedMonth =0;
 accumulatedMonth = getAccumulatedMonth();
 
+
 function getTargetMonth (){
     const sum = Math.trunc(mission / accumulatedMonth);
-    return sum;
+    if(sum >0){
+        console.log('Цель будет достигнута через :',getTargetMonth(),'месяцев'); 
+    }else if (sum < 0){
+    console.log('Цель не будет достигнута');
 }
-console.log('Цель будет достигнута через :',getTargetMonth(),'месяцев');
+}
+getTargetMonth();
+
+
 
 let budgetDay;
 budgetDay = (accumulatedMonth) / 30;
