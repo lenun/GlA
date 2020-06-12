@@ -10,27 +10,27 @@ function game(){
 
 function start () {
 
-        let useNum = prompt("Сможешь отгадать загаданное число от 1 до 100?");
+        let useNum = prompt('Сможешь отгадать загаданное число от 1 до 100?');
     
         if(useNum === null) {
-            let endPlay = confirm("Ой,вы уже уходите?");
+            let endPlay = confirm('Ой,вы уже уходите?');
             if(endPlay) {
                 return 1;
             }
         }
         
         if(!isNumber(useNum)) {
-            alert("Введи число!");
+            alert('Введи число!');
             return start();
         }
     
         if(useNum < num) {
-            alert("Загаданное число больше");
+            alert('Загаданное число больше');
             return start();
         }
     
         if(useNum > num) {
-            alert("Загаданное число меньше");
+            alert('Загаданное число меньше');
             return start();
         }
     
