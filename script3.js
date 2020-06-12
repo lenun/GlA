@@ -13,7 +13,7 @@ function start () {
         let useNum = prompt("Сможешь отгадать загаданное число от 1 до 100?");
     
         if(useNum === null) {
-            let endPlay = confirm("Желаете закончить игру?");
+            let endPlay = confirm("Ой,вы уже уходите?");
             if(endPlay) {
                 return 1;
             }
