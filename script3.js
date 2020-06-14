@@ -5,38 +5,33 @@ const isNumber = number => {
 };
 
 function game(){
-    let num=56;
+    let num = 66;
     let play;
-
-function start () {
-
-        let useNum = prompt("Сможешь отгадать загаданное число от 1 до 100?");
-    
-        if(useNum === null) {
-            let endPlay = confirm("Желаете закончить игру?");
-            if(endPlay) {
-                return 1;
+    let attempt = 10;
+function start(){
+let question = prompt("Сможешь отгадать загаданное число от 1 до 100?");
+   if(question === null) {
+   let endPlay = confirm("Ой,вы уже уходите?");
+   if(endPlay) {
+      return 1;
             }
         }
-        
-        if(!isNumber(useNum)) {
-            alert("Введи число!");
-            return start();
-        }
-    
-        if(useNum < num) {
-            alert("Загаданное число больше");
-            return start();
-        }
-    
-        if(useNum > num) {
-            alert("Загаданное число меньше");
-            return start();
-        }
-    
-        play = confirm('Вы выйграли');
-    
+   if(!isNumber(question)) {
+      alert('Я так не играю! Введите число!');
+      return start();
       }
-      start();
-    }
+   if(question < num) {
+      attempt--;
+      alert('Загаданное число больше,у вас осталость',attempt(),'попыток');
+      return start();
+      }
+   if(question > num) {
+      attempt--;
+      alert('Загаданное число меньше,у вас осталость',attempt(),'попыток');
+      return start();
+      }
+   play = confirm('Вы выйграли');
+   }
+   start();
+   }
 game();
