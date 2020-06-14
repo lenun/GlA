@@ -72,7 +72,6 @@ appData.asking();
 appData.getExpensesMonth();
 console.log('Расходы за месяц: ', appData.expensesMonth);
 appData.getBudget();
-appData.getTargetMonth();
 console.log(appData.getTargetMonth(appData.mission,appData.budgetMonth));
 console.log( appData.getStatusIncome(appData.budgetDay));
 
