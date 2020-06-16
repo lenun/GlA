@@ -6,7 +6,7 @@ return !isNaN(parseFloat(n)) && isFinite(n);
 let money,
     start = function(){
       do{
-      money = prompt('Ваш месячный доход?');
+      money = prompt('Ваш месячный доход?',50000);
       }
       while(!isNumber(money));
       };
@@ -15,24 +15,47 @@ let money,
 let appData = {
    income: {},
    addExpenses: [],
-   expenses: [],
+   expenses: {},
    deposit: false,
    mission: 1000000,
    budget: money,
+   period : 3,
    budgetDay: 0,
    budgetMonth:0,
    expensesMonth: 0,
+   pencentDeposit: 0,
+   moneyDeposit: 0,
    asking: function(){
+      if(confirm('У вас есть дополнительный источник заработка?')){
+      let itemInCome;
+      let cashInCome;
+      do{
+         itemInCome = prompt('Какой у вас дополнительный заработок','Фриланс');
+      }while(isNumber(itemInCome));
+      do{
+      cashInCome = prompt('Сколько вы с него получаете в месяц?',10000);
+      }while(!isNumber(cashInCome));
+
+         appData.income[itemInCome]= +cashInCome;
+      }
       appData.addExpenses = prompt('Перечислите возможные расходы');
+
       appData.addExpenses =this.addExpenses.toLowerCase().split(',');
+      console.log( (appData.addExpenses).join(', ') );
       appData.deposit = confirm('Есть ли у вас депозит в банке');
+   
       for (let i = 0; i < 2; i++) {
-         let expense = prompt("Введите обязательную статью расходов", "пропитание");
          let anower = 0;
+         let expense;
+         do{
+         expense = prompt("Введите обязательную статью расходов", "пропитание");
+         }while(isNumber(expense));
+       
          do{
         anower = +prompt("Во сколько это обойдётся");
          }while(!isNumber(anower));
-      appData.expenses[expense] = anower;
+
+      appData.expenses[expense] = +anower;
          
      }
     },
@@ -66,7 +89,16 @@ let appData = {
          return('Вы не зарабатываете ');
          }else {
          return('Упс, что то пошло не так');
-         }}
+         }},
+      getInfoDeposit: function(){
+         if(appData.deposit && (!isNumber(this.pencentDeposit)) &&(!isNumber(this.moneyDeposit)) ){
+            appData.pencentDeposit = prompt('Какой у вас годовой процент?','10');
+            appData.moneyDeposit = prompt('Какая сумма заложена?',10000);
+         }
+      },
+      calcSavedMoney: function(){
+         return appData.budgetMonth * appData.period;
+      }
 };
 appData.asking();
 appData.getExpensesMonth();
