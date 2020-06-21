@@ -30,8 +30,9 @@ chapters[37].before(chapters[45]);
 chapters[41].after(chapters[39]);
 chapters[44].after(chapters[42]);
 
+//создаем переменную,чтоб добавить в HTML
 let newChapters = document.createElement('li');
-
+//прописываем текст главы
 newChapters.textContent = 'Глава 8: За пределами ES6';
-
+//добавляем в нужное место
 chapters[55].after(newChapters);
