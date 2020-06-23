@@ -88,7 +88,7 @@ let appData = {
     appData.caValuelcIncomePeriod();
     appData.getPeriod();
 
-    
+ 
     },
 
    // работа кнопки №2
@@ -216,6 +216,12 @@ let appData = {
         appData.caValuelcIncomePeriod();
       }
     };
+
+    if (document.getElementsByTagName('button')[0].value !== '') {
+            alert('введите что-то');
+    } else {
+        console.log('все ок');
+    }
 
 start.addEventListener('click',appData.start);
 
