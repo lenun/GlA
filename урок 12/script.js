@@ -6,12 +6,15 @@ headerInput = document.querySelector('.header-input'),
 todoList = document.querySelector('.todo-list'),
 todoCompleted = document.querySelector('.todo-completed');
 
+//создаем массив
 let todoData =[];
+
 
 let render = function(){
     todoList.textContent = '';
     todoCompleted.textContent = '';
 
+//перебираем элементы,доб.новые
     todoData.forEach(function(item){
         let li = document.createElement('li');
         li.classList.add('todo-item');
@@ -21,18 +24,19 @@ let render = function(){
             '<button class="todo-remove"></button>' +
             '<button class="todo-complete"></button>'+
         '</div>';
-
+//условие при котором идет выборка куда добавлять элемент
         if(item.completed){
             todoCompleted.append(li);
         }else{
             todoList.append(li);
         }
-    
+// кнопка +
         let btntodoComplete = li.querySelector('.todo-complete');
         btntodoComplete.addEventListener('click', function(){
             item.completed = !item.completed;
             render();
         });
+// корзина
         let btnremove = li.querySelector('.todo-remove');
         btnremove.addEventListener('click',function(){
             todoData = todoData.filter((remove) => remove.value !== item.value);
@@ -40,11 +44,12 @@ let render = function(){
         });
         
     });
+//добавляем в локал сторчж
     localStorage.setItem("todo", JSON.stringify(todoData));
 };
 
 
-
+//добавление новых дел
 todoControl.addEventListener('submit',function(event){
     event.preventDefault();
 
@@ -58,7 +63,7 @@ todoControl.addEventListener('submit',function(event){
         headerInput.value = '';
       }
 });
-
+//получаем старые значения
 let getPastData = function() {
     if (!localStorage.getItem('todo')) {
       let todo = [
