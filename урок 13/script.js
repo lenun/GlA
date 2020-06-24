@@ -1,4 +1,3 @@
-  
 'use strict';
 
 let
@@ -18,8 +17,10 @@ let
     targetMonth = document.getElementsByClassName('result-total target_month-value')[0],
     dataSection = document.querySelector(".data"),
     dataInputs = dataSection.getElementsByTagName("input"),
+    additionalExpensesItem = document.querySelector('.additional_expenses-item'),
 
-    additionalIncomeAmount = document.querySelector(".additional_income-amount"),
+
+    additionalIncomeAmount = document.querySelector('.additional_income-amount'),
     salaryAmount = document.querySelector('.salary-amount'),
     incomeTitle = document.querySelector('.income-title'),
     incomeAmount = document.querySelector('.income-amount'),
@@ -27,13 +28,12 @@ let
     expensesAmount = document.querySelector('.expenses-amount'), 
     expensesItems = document.querySelectorAll('.expenses-items'),
     additionalExpenses1 = document.querySelector('.additional_expenses'),
-    additionalExpensesItem = document.querySelector('.additional_expenses-item'),
     periodSelect = document.querySelector('.period-select'),
     periodAmount = document.querySelector('.period-amount'),
     targetAmount = document.querySelector('.target-amount'),
     incomeItems = document.querySelectorAll('.income-items'),
-    main = document.querySelector('.main');
-
+    main = document.querySelector('.main'),
+   inputElements = document.querySelectorAll('input[type="text"]');
 
 //не нужный консоль лог,но мне так удобней...
 //     console.log(start,buttonPlus1,buttonPlus2,checkBox,additionalIncomeItem,
@@ -67,6 +67,13 @@ let appData = {
    moneyDeposit: 0,
     start: function(){
         if (salaryAmount.value  !== ''){
+    
+            inputElements.forEach( element => {
+              element.disabled = true;
+          });
+          start.style.display = "none";
+          cancel.style.display = "inline";
+
        this.budget = +salaryAmount.value;
        this.getExpenses();
        this.getExpensesMonth();
@@ -77,70 +84,55 @@ let appData = {
        this.getAddInCome();
 
        this.showResult();
-       
-      for (let i = 0; i < dataInputs.length; i++) {
-        if (dataInputs[i].type === 'text') {
-          dataInputs[i].disabled = true;
-        }
+
+        }else {
+          start.disabled=true;
       }
-
-      cancel.style.display = 'block';
-      start.style.display = 'none';
-    } else {
-      console.error('ошибка');
-    }
-  
-
-   },
-   reset: function () {
-    this.budget = 0;
-    this.expenses = {};
-    this.expensesMonth = 0;
-    this.income = {};
-    this.addExpenses = [];
-    this.addIncome = [];
-    this.budgetMonth = 0;
-    this.budgetDay = 0;
-
-   
-    salaryAmount.value = '';
-    incomeTitle.value = '';
-    incomeAmount.value = '';
-    additionalIncomeItem.value = '';
-    additionalIncomeAmount.value = '';
-    expensesTitle.value = '';
-    expensesAmount.value = '';
-    expensesItems.value = '';
-    additionalExpensesItem.value = '';
-    targetAmount.value ='';
-    periodSelect.value = 1;
-    periodAmount.value = '';
-
-    incomeItems.forEach((item) => {
-      item.querySelector(".income-title").value = "";
-      item.querySelector(".income-amount").value = "";
-    });
-
-    expensesItems.forEach((item) => {
-      item.querySelector(".expenses-title").value = "";
-      item.querySelector(".expenses-amount").value = "";
-    });
-
-    this.showResult();
-    for (let i = 0; i < dataInputs.length; i++) {
-        dataInputs[i].disabled = false;
-      }
-      cancel.style.display = 'none';
-      start.style.display = 'block';
-
   },
+      reset: function() {
+        this.addIncome = [];
+        this.addExpenses = [];
+        this.expenses = {};
+        this.income = {};
+        this.expensesMonth = 0;
+        this.incomeMonth = 0;
+        this.budget = 0;
+        this.budgetDay = 0;
+        this.budgetMonth = 0;
+
+        inputElements.forEach( element => {
+            element.value = null;
+            element.disabled = false;
+        });
+        this.showResultStatus = false;
+
+        expensesItems.forEach( (element, index) => {
+            if(index > 0) {
+                element.remove();
+            }
+
+        });
+        incomeItems.forEach( (element, index) => {
+            if(index > 0) {
+                element.remove();
+            }
+
+        });
+        buttonPlus1.style.display = 'inline';
+        buttonPlus2.style.display = 'inline';
+        periodSelect.value = 1;
+        periodAmount.textContent = periodSelect.value;
+        checkBox.checked = false; 
+        start.style.display = 'inline';
+        cancel.style.display = 'none';
+   },
 
  //вывод на страницу наших функций на заданные места
    showResult: function(){
     budgetMonthValue.value = this.budgetMonth;
     budgetDayValue.value = Math.ceil(this.budgetDay);
     expensesMonth.value = this.expensesMonth;
-    additionalExpenses.value = this.addExpenses.join('');
+    additionalExpenses.value = this.addExpenses.join(' ');
     additionalIncome.value =this.addincome.join(', ');
     targetMonth.value = Math.ceil(this.getTargetMonth());
     incomePeriod.value = this.calcSavedMoney();
@@ -282,7 +274,7 @@ let appData = {
 }
 };
 start.addEventListener('click', appData.start.bind(appData));
-cancel.addEventListener("click", appData.reset.bind(appData));
+cancel.addEventListener('click', appData.reset.bind(appData));
 buttonPlus2.addEventListener('click',appData.addExpensesBlock);
 buttonPlus1.addEventListener('click',appData.addIncomeBlock);
 periodSelect.addEventListener('input',appData.getPeriod);
