@@ -80,6 +80,7 @@ this.getExpenses();
 this.getExpensesMonth();
 this.getIncome();
 this.getAddExpenses();
+this.getAddInCome();
 this.getInfoDeposit();
 this.getBudget();
 
