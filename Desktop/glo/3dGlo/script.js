@@ -47,7 +47,7 @@ const menu = document.querySelector('menu');
           console.log(target);
 
           if(target.classList.contains('close-btn') || target.closest('.menu')) { 
-              return ;
+              return getAct();
           }
 
       });
@@ -108,24 +108,32 @@ const tabs = () => {
           tabContent = document.querySelectorAll('.service-tab');
       
       const toggleTabs = (index) => {
-          tabContent.forEach( (content, i) => {
+          for(let i = 0; i  < tabContent.length; i++){
               if(index === i) {
-                  content.classList.remove('d-none');
-                  tab[i].classList.add('active'); 
+                tab[i].classList.add('active'); 
+                tabContent[i].classList.remove('d-none');
+                   
               } else {
-                  content.classList.add('d-none');
-                  tab[i].classList.remove('active'); 
+                tab[i].classList.remove('active');
+                tabContent[i].classList.add('d-none');
+               
               }
-          });
-      };
+            }
+          };
+      
 
       tabHeader.addEventListener('click', event => {
-          let target = event.target.closest(".service-header-tab");
+          let target = event.target.closest('.service-header-tab');
+
 
           if(target) {
-             toggleTabs( [...tab].indexOf(target) );
+             tab.forEach((item,i) =>{
+               if (item === target){
+                 toggleTabs(i);
+               }
+             });
           }
-
+          
       });
   };
 tabs();
