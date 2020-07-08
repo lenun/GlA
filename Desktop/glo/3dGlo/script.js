@@ -261,7 +261,7 @@ getCommand();
 //калькулятор 
 
 const calculator = () =>{
-    const calcBlock = document.querySelector(".calc-block");
+    const calcBlock = document.querySelector('.calc-block');
 
     const input = (event) => {
         const target = event.target;
